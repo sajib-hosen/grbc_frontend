@@ -6,45 +6,29 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider, { Settings } from "react-slick";
 import Image from "next/image";
 import { IMAGES } from "@/utils/constants";
-
-const settings: Settings = {
-  dots: false,
-  infinite: true,
-  slidesToShow: 4,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 5000,
-  pauseOnHover: true,
-  centerMode: true,
-  responsive: [
-    {
-      breakpoint: 640, // sm
-      settings: {
-        slidesToShow: 1,
-      },
-    },
-    {
-      breakpoint: 768, // md
-      settings: {
-        slidesToShow: 2,
-      },
-    },
-    {
-      breakpoint: 1024, // lg
-      settings: {
-        slidesToShow: 3,
-      },
-    },
-    {
-      breakpoint: 1280, // xl
-      settings: {
-        slidesToShow: 4,
-      },
-    },
-  ],
-};
+import { useTheme } from "@/context/theme-provider";
 
 const MatchSlider = () => {
+  const { innerWidth } = useTheme();
+
+  const settings: Settings = {
+    dots: true,
+    infinite: true,
+    slidesToShow:
+      innerWidth <= 640
+        ? 1
+        : innerWidth <= 768
+        ? 2
+        : innerWidth <= 1024
+        ? 3
+        : 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    pauseOnHover: true,
+    centerMode: true,
+  };
+
   return (
     <div className="relative mx-auto max-w-[280px] sm:max-w-[500px] md:max-w-[600px] lg:max-w-[870px] ">
       <Slider {...settings} className="">

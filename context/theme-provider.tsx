@@ -6,17 +6,20 @@ export interface ContextProps {
   toggleTheme: () => void;
   isDarkMode: boolean;
   isMobile: boolean;
+  innerWidth: number;
 }
 
 export const ThemeContext = createContext<ContextProps>({
   toggleTheme: () => {},
-  isDarkMode: true,
+  isDarkMode: false,
   isMobile: false,
+  innerWidth: 370,
 });
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [innerWidth, setInnerWidth] = useState(370);
 
   const toggleTheme = () => {
     const newMode = !isDarkMode;
@@ -47,6 +50,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 640);
+      setInnerWidth(window.innerWidth);
     };
 
     handleResize();
@@ -55,7 +59,9 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ isDarkMode, toggleTheme, isMobile }}>
+    <ThemeContext.Provider
+      value={{ isDarkMode, toggleTheme, isMobile, innerWidth }}
+    >
       {children}
     </ThemeContext.Provider>
   );

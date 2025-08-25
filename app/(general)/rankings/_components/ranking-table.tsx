@@ -127,17 +127,19 @@ const RankingTable = () => {
                     whileHover={{ scale: 1.15, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <Image
-                      width={32}
-                      height={32}
-                      src={IMAGES.default_player}
-                      alt="player"
-                      className="rounded-full shadow-sm"
-                    />
+                    <div className=" min-w-[32px] min-h-[32px]">
+                      <Image
+                        width={32}
+                        height={32}
+                        src={IMAGES.default_player}
+                        alt="player"
+                        className="rounded-full shadow-sm"
+                      />
+                    </div>
                   </motion.div>
                   <div>
-                    <p className="font-medium">{player.name}</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">
+                    <p className="font-medium truncate">{player.name}</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 truncate">
                       {player.team}
                     </p>
                   </div>
